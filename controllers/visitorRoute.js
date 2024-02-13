@@ -3,12 +3,14 @@ const visitorModel = require("../models/visitorModel")
 
 const router = express.Router()
 
-router.get("/view",async(req,res)=>{
+router.get("/viewvisitors",async(req,res)=>{
     let data = await visitorModel.find()
+    .populate("userId","name")
+    .exec()
     res.json(data)
 })
 
-router.post("/add",async(req,res)=>{
+router.post("/addvisitor",async(req,res)=>{
     let data = req.body
     let visitor = new visitorModel(data)
     let result = await visitor.save() 
